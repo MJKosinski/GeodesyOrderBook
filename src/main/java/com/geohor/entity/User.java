@@ -29,13 +29,13 @@ public class User {
     private String email;
 
 
-    @NotBlank
+    @Column
     private UserType type;
 
     @Transient
     private List<String> mailingList;
 
-    @ManyToMany(mappedBy = "subcontractors")
+    @ManyToMany(mappedBy = "subcontractors", fetch = FetchType.EAGER)
     private List<Work> orderList = new ArrayList<>();
 
 

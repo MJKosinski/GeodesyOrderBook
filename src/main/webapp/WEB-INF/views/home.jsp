@@ -11,13 +11,9 @@
     <title>Title</title>
 </head>
 <body>
-<a href="/book/form">book form</a><br>
-<a href="/book/list">book list</a><br>
-<a href="/propose/form">propose form</a><br>
-<a href="/propose/list">propose list</a><br>
-<a href="/publisher/form">publisher form</a><br>
-<a href="/publisher/list">publisher list</a><br>
-<a href="/author/form">author form</a><br>
-<a href="/author/list">author list</a><br>
+<h2>Users</h2>
+<a href="/user/form">Add user</a><br>
+<a href="/user/list">Edit User</a><br>
+<hr/>
 </body>
 </html>
