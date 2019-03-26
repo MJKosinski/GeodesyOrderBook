@@ -13,7 +13,8 @@
 <body>
 <h2>Users</h2>
 <a href="/user/form">Add user</a><br>
-<a href="/user/list">Edit User</a><br>
 <hr/>
+<h2>Works</h2>
+<a href="/work/form">Add Work</a><br>
 </body>
 </html>

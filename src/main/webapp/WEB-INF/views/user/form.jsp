@@ -28,9 +28,6 @@
         <form:options items="${userTypes}" itemLabel="title"/><br>
     </form:select>
 
-    <%--itemLabel="${userTypes.title}"--%>
-
-
     <input type="submit" value="save">
 
 </form:form>

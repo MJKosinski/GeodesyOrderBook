@@ -6,6 +6,9 @@ import com.geohor.myenum.WorkType;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,7 +25,7 @@ public class Work {
     // People
 
     @ManyToOne
-    @NotBlank
+    @NotNull
     private User declarant;
 
     @ManyToOne
@@ -35,6 +38,7 @@ public class Work {
     // Dates
     private LocalDateTime applicationDate;
 
+
     private LocalDate workDate;
 
     private LocalDate submissionDate;
@@ -42,7 +46,7 @@ public class Work {
 
     //Work identification
 
-    @NotBlank
+    @NotNull
     private CatalogType catalog;
 
 
@@ -52,7 +56,7 @@ public class Work {
     @NotBlank
     private String object;
 
-    @NotBlank
+    @NotNull
     private WorkType workType;
 
     @NotBlank
@@ -61,8 +65,9 @@ public class Work {
     @Column
     private String mileageEnd;
 
-    @Column
-    private String describtion;
+    @Size(max=600)
+    @Column(columnDefinition = "Text")
+    private String description;
 
     @Column
     private String declarantComment;
@@ -74,7 +79,7 @@ public class Work {
     private String constructFieldRaport;
 
     @Column
-    @NotBlank
+    @NotNull
     private StatusType status;
 
 
@@ -185,12 +190,12 @@ public class Work {
         this.mileageEnd = mileageEnd;
     }
 
-    public String getDescribtion() {
-        return describtion;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescribtion(String describtion) {
-        this.describtion = describtion;
+    public void setDescription(String describtion) {
+        this.description = describtion;
     }
 
     public String getDeclarantComment() {
@@ -240,7 +245,7 @@ public class Work {
                 ", workType=" + workType +
                 ", mileageStart='" + mileageStart + '\'' +
                 ", mileageEnd='" + mileageEnd + '\'' +
-                ", describtion='" + describtion + '\'' +
+                ", describtion='" + description + '\'' +
                 ", declarantComment='" + declarantComment + '\'' +
                 ", geodesyComment='" + geodesyComment + '\'' +
                 ", constructFieldRaport='" + constructFieldRaport + '\'' +
