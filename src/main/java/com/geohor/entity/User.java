@@ -1,10 +1,13 @@
 package com.geohor.entity;
 
+import com.geohor.controller.validationGroup.FullValidation;
+import com.geohor.controller.validationGroup.PartValidation;
 import com.geohor.myenum.UserType;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
+import javax.validation.groups.Default;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,17 +19,17 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
+    @NotBlank(groups = {Default.class, FullValidation.class})
     @Column(unique = true)
     private String name;
 
 
-    @NotBlank
+    @NotBlank(groups = {FullValidation.class, PartValidation.class})
     private String password;
 
 
-    @Email
-    @NotBlank
+    @Email(groups = {Default.class, FullValidation.class, PartValidation.class})
+    @NotBlank(groups = {Default.class, FullValidation.class, PartValidation.class})
     @Column(unique = true)
     private String email;
 

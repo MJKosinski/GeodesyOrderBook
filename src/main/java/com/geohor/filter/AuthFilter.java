@@ -22,22 +22,20 @@ public class AuthFilter implements Filter {
         String uri = request.getRequestURI();
         User user = (User) session.getAttribute("user");
 
-        if(user == null &&
-                !uri.equals("/user/login") &&
-                !uri.equals("/user/form") &&
-                !uri.equals("/resources/")) {
+        if(user == null && !uri.equals("/resources/")
+                        && !uri.equals("/user/login")) {
             response.sendRedirect(request.getContextPath()+"/user/login");
             return;
         } else if(user != null && user.getType()== UserType.SUBCONTRACTOR && (
-                uri.matches("\\/user\\/geo\\/.+") || uri.matches("\\/user\\/gw\\/.+"))){
+                uri.matches(".+\\/geo\\/.+") || uri.matches(".+\\/gw\\/.+"))){
             response.sendRedirect(request.getContextPath()+"/");
             return;
         } else if(user != null && user.getType()== UserType.GENERAL_CONTRACTOR && (
-                uri.matches("\\/user\\/geo\\/.+") || uri.matches("\\/user\\/sub\\/.+"))){
+                uri.matches(".+\\/geo\\/.+") || uri.matches(".+\\/sub\\/.+"))){
             response.sendRedirect(request.getContextPath()+"/");
             return;
         }else if(user != null && user.getType()== UserType.GEODESY && (
-                uri.matches("\\/user\\/gw\\/.+") || uri.matches("\\/user\\/sub\\/.+"))) {
+                uri.matches(".+\\/gw\\/.+") || uri.matches(".+\\/sub\\/.+"))) {
             response.sendRedirect(request.getContextPath() + "/");
             return;
         }

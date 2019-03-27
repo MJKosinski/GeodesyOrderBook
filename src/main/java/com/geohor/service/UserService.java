@@ -1,10 +1,14 @@
 package com.geohor.service;
 
 import com.geohor.entity.User;
+import com.geohor.myenum.UserType;
 import com.geohor.repository.UserRepository;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Service
@@ -48,5 +52,34 @@ public class UserService {
     }
 
 
+    public List<User> findAll(UserType type) {
 
+        List<User> allUsers = new ArrayList<>();
+
+        if(type == UserType.GEODESY) {
+
+            allUsers = userRepository.findAll();
+        }
+
+
+     return allUsers;
+    }
+
+    public void delUser(UserType fulltype, Long id) {
+        User userToDelete = userRepository.findOne(id);
+        if(fulltype == UserType.GEODESY){
+            userRepository.delete(userToDelete);
+            return;
+
+        } else if(fulltype == UserType.GENERAL_CONTRACTOR) {
+            if(userToDelete.getType() != UserType.SUBCONTRACTOR){
+                return;
+            } else {
+                userRepository.delete(userToDelete);
+            }
+        }
+        return;
+
+
+    }
 }

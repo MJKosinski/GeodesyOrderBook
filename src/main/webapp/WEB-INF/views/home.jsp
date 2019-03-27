@@ -19,6 +19,9 @@
 <a href="user/geo/form">geo/form</a><br>
 <a href="user/gw/form">user/form</a><br>
 <a href="user/sub/form">sub/form</a><br>
+<br>
+<a href="/logout">logout</a><br>
 
+<%@include file="base/sidebar.jsp"%>
 </body>
 </html>

@@ -6,11 +6,11 @@
     <title>Title</title>
 </head>
 <body>
-<h2>Add/Edit User</h2>
-<hr/>
+<h2>WIDOK GEO</h2>
+
 <form:form modelAttribute="user"
            method="post"
-           action="${pageContext.request.contextPath}/user/form"
+           action="/user/geo/form"
            cssClass="user">
 
     <form:hidden path="id"/>
@@ -21,8 +21,10 @@
     <form:input path="email" placeholder="em@il"/>
     <form:errors path="email"/>
 
+<c:if test="${user.id == null}">
     <form:password path="password" placeholder="password"/>
     <form:errors path="password"/>
+</c:if>
 
     <form:select path="type" name="type"><br>
         <form:options items="${userTypes}" itemLabel="title"/><br>

@@ -1,11 +1,13 @@
 package com.geohor.controller;
 
+import com.geohor.controller.validationGroup.FullValidation;
 import com.geohor.controller.validationGroup.PartValidation;
 import com.geohor.entity.User;
 import com.geohor.myenum.UserType;
 import com.geohor.repository.UserRepository;
 import com.geohor.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -39,22 +42,33 @@ public class UserController {
         return "user/"+type+"/form";
     }
 
-    @PostMapping("/form")
-    public String userForm(@Validated User user, BindingResult err, HttpServletRequest req){
+    @GetMapping("/form")
+    public String userForm(Model model){
+        model.addAttribute("user", new User());
+        return "user/form";
+    }
 
-        if(err.hasErrors()){
-            return "user/form";
+    @PostMapping("{type}/form")
+    public String userForm(@Valid User user, BindingResult err, @Validated({FullValidation.class}) User userFull, BindingResult errFull, HttpServletRequest req, @PathVariable String type){
+
+        if(user.getId()==null && errFull.hasErrors()){
+            //new user must pass password
+            return "user/"+type+"/form";
+        }
+        //if edit user don't must pass password
+        if(user.getId() != null && err.hasErrors()){
+            return "user/"+type+"/form";
         }
 
-        userRepository.save(user);
-        return "redirect:"+req.getContextPath()+"/user/list";
+        userService.save(user);
+        return "redirect:"+req.getContextPath()+"/user/"+type+"/list";
     }
 
     @GetMapping("{type}/form/{id}")
-    public String userForm(Model model, @PathVariable Long id){
+    public String userForm(Model model, @PathVariable Long id, @PathVariable String type){
         User user = userRepository.findOne(id);
-        model.addAttribute(user);
-        return "/user/form";
+        model.addAttribute("user", user);
+        return "user/"+type+"/form";
     }
 
     @GetMapping("/login")
@@ -80,10 +94,21 @@ public class UserController {
         }
     }
 
-    @GetMapping("/geo/form")
-    public String geoForm(){
-        return "/user/geo/form";
+    @GetMapping("{type}/list")
+    public String userList(Model model, HttpSession session, @PathVariable String type) {
+        User user = (User) session.getAttribute("user");
+        UserType fulltype = user.getType();
+        model.addAttribute("users", userService.findAll(fulltype));
+        return "user/"+type+"/list";
     }
 
+
+    @GetMapping("{type}/list/del/{id}")
+    public String delUser(HttpSession session, @PathVariable Long id, @PathVariable String type, HttpServletRequest req){
+        User user = (User) session.getAttribute("user");
+        UserType fulltype = user.getType();
+        userService.delUser(fulltype, id);
+        return "redirect:"+req.getContextPath()+"/user/"+type+"/list"; /// ???
+    }
 
 }
