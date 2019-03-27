@@ -16,5 +16,9 @@
 <hr/>
 <h2>Works</h2>
 <a href="/work/form">Add Work</a><br>
+<a href="user/geo/form">geo/form</a><br>
+<a href="user/gw/form">user/form</a><br>
+<a href="user/sub/form">sub/form</a><br>
+
 </body>
 </html>

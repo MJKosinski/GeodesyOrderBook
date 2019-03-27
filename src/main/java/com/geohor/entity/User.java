@@ -1,6 +1,7 @@
 package com.geohor.entity;
 
 import com.geohor.myenum.UserType;
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
@@ -17,13 +18,14 @@ public class User {
 
     @NotBlank
     @Column(unique = true)
-    private String login;
+    private String name;
 
 
     @NotBlank
     private String password;
 
 
+    @Email
     @NotBlank
     @Column(unique = true)
     private String email;
@@ -50,12 +52,12 @@ public class User {
         this.id = id;
     }
 
-    public String getLogin() {
-        return login;
+    public String getName() {
+        return name;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setName(String login) {
+        this.name = login;
     }
 
     public String getPassword() {
@@ -102,7 +104,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", login='" + login + '\'' +
+                ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", type=" + type +

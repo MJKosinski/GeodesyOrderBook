@@ -2,6 +2,7 @@ package com.geohor.fixtures;
 
 import com.geohor.entity.User;
 import com.geohor.myenum.UserType;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,30 +14,30 @@ public class UserInit {
         
         List<User> users = new ArrayList<>();
         User geoUser = new User();
-        geoUser.setLogin("geo");
+        geoUser.setName("geodeta");
         geoUser.setEmail("geo@geo.pl");
-        geoUser.setPassword("123");
+        geoUser.setPassword(BCrypt.hashpw("123", BCrypt.gensalt()));
         geoUser.setType(UserType.GEODESY);
         users.add(geoUser);
 
         User generalCUser = new User();
-        generalCUser.setLogin("gw");
+        generalCUser.setName("generalny_wykonawca");
         generalCUser.setEmail("gw@gw.pl");
-        generalCUser.setPassword("123");
+        generalCUser.setPassword(BCrypt.hashpw("123", BCrypt.gensalt()));
         generalCUser.setType(UserType.GENERAL_CONTRACTOR);
         users.add(generalCUser);
         
         User sub1User = new User();
-        sub1User.setLogin("sub1");
+        sub1User.setName("Podwykonawca-1");
         sub1User.setEmail("sub1@gw.pl");
-        sub1User.setPassword("123");
+        sub1User.setPassword(BCrypt.hashpw("123", BCrypt.gensalt()));
         sub1User.setType(UserType.SUBCONTRACTOR);
         users.add(sub1User);
 
         User sub2User = new User();
-        sub2User.setLogin("sub2");
+        sub2User.setName("Podwykonawca-2");
         sub2User.setEmail("sub2@gw.pl");
-        sub2User.setPassword("123");
+        sub2User.setPassword(BCrypt.hashpw("123", BCrypt.gensalt()));
         sub2User.setType(UserType.SUBCONTRACTOR);
         users.add(sub2User);
 

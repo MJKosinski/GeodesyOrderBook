@@ -69,9 +69,18 @@
         </form:select>
     </label><br>
 
+    <form:select path="subcontractors" name="subcontractors">
+        <form:options items="${subcontractors}" itemLabel="name" itemValue="id"/><br>
+    </form:select>
+
     <input type="submit" value="save">
 
+
+
+
 </form:form>
+
+<a href="/">RETURN HOME</a>
 
 
 

@@ -253,21 +253,3 @@ public class Work {
                 '}';
     }
 }
-
-/*
-Katalog
-branża
-Obiekt
-Kilometraż od
-Kilometraż do
-TYCZ/INW/OBL
-
-Temat
-Uwagi dla operatu
-Uwagi dla terenowców
-Załącznik od GW
-Załącznik dla GW
-raport z terenu
-status zgłoszenia
-
- */
