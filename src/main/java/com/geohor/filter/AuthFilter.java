@@ -20,7 +20,7 @@ public class AuthFilter implements Filter {
         HttpSession session = request.getSession();
         HttpServletResponse response = (HttpServletResponse) resp;
         String uri = request.getRequestURI();
-        User user = (User) session.getAttribute("user");
+        User user = (User) session.getAttribute("logUser");
 
         if(user == null && !uri.equals("/resources/")
                         && !uri.equals("/user/login")) {

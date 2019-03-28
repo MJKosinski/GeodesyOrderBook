@@ -1,6 +1,8 @@
 package com.geohor.app;
 
+import com.geohor.controller.UserController;
 import com.geohor.converter.LocalDateConverter;
+import com.geohor.converter.UserConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
@@ -13,6 +15,7 @@ public class FormatterConfig implements WebMvcConfigurer {
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(localDateConverter());
+        registry.addConverter(userConverter());
 
 
     }
@@ -22,6 +25,8 @@ public class FormatterConfig implements WebMvcConfigurer {
         return new LocalDateConverter();
     }
 
+    @Bean
+    public UserConverter userConverter() { return new UserConverter(); }
 
 
 }

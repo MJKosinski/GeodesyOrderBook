@@ -49,7 +49,7 @@ public class UserController {
     }
 
     @PostMapping("{type}/form")
-    public String userForm(@Valid User user, BindingResult err, @Validated({FullValidation.class}) User userFull, BindingResult errFull, HttpServletRequest req, @PathVariable String type){
+    public String userForm(@Valid User user, BindingResult err, @Validated({FullValidation.class}) User userFull, BindingResult errFull, HttpServletRequest req, @PathVariable String type, HttpSession session){
 
         if(user.getId()==null && errFull.hasErrors()){
             //new user must pass password
@@ -59,7 +59,10 @@ public class UserController {
         if(user.getId() != null && err.hasErrors()){
             return "user/"+type+"/form";
         }
-
+        User loggedUser = (User) session.getAttribute("logUser");
+        if(loggedUser.getId()==user.getId()){
+            session.setAttribute("logUser",user);
+        }
         userService.save(user);
         return "redirect:"+req.getContextPath()+"/user/"+type+"/list";
     }
@@ -85,7 +88,7 @@ public class UserController {
         }
         try {
             User logedInUser = userService.checkLogin(user.getEmail(), user.getPassword());
-            session.setAttribute("user", logedInUser);
+            session.setAttribute("logUser", logedInUser);
             return "redirect:" + req.getContextPath() + "/";
 
         } catch (Exception e) {
@@ -96,7 +99,7 @@ public class UserController {
 
     @GetMapping("{type}/list")
     public String userList(Model model, HttpSession session, @PathVariable String type) {
-        User user = (User) session.getAttribute("user");
+        User user = (User) session.getAttribute("logUser");
         UserType fulltype = user.getType();
         model.addAttribute("users", userService.findAll(fulltype));
         return "user/"+type+"/list";
@@ -105,7 +108,7 @@ public class UserController {
 
     @GetMapping("{type}/list/del/{id}")
     public String delUser(HttpSession session, @PathVariable Long id, @PathVariable String type, HttpServletRequest req){
-        User user = (User) session.getAttribute("user");
+        User user = (User) session.getAttribute("logUser");
         UserType fulltype = user.getType();
         userService.delUser(fulltype, id);
         return "redirect:"+req.getContextPath()+"/user/"+type+"/list"; /// ???

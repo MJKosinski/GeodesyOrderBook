@@ -25,13 +25,12 @@ public class Work {
     // People
 
     @ManyToOne
-    @NotNull
     private User declarant;
 
     @ManyToOne
     private User geodesyPerformer;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<User> subcontractors;
 
 

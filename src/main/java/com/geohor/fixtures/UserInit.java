@@ -3,13 +3,16 @@ package com.geohor.fixtures;
 import com.geohor.entity.User;
 import com.geohor.myenum.UserType;
 import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserInit {
     
-    
+
+
+
     public static List<User> createUsers() {
         
         List<User> users = new ArrayList<>();

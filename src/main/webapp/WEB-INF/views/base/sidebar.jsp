@@ -3,17 +3,18 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center"
+       href="${pageContext.request.contextPath}/">
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">${userFunction}</div>
+        <div class="sidebar-brand-text mx-3">${logUser.type.title}</div>
     </a>
 
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
     <li class="nav-item">
-        <a class="nav-link" href="${pageContext.request.contextPath}">
+        <a class="nav-link" href="${pageContext.request.contextPath}/">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Strona startowa</span></a>
     </li>
@@ -35,9 +36,10 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">UŻYTKOWNICY:</h6>
-                <a class="collapse-item" href="${pageContext.request.contextPath}/user/${type_prefix}/form/${user.id}">Edytuj
+                <a class="collapse-item"
+                   href="${pageContext.request.contextPath}/user/${type_prefix}/form/${logUser.id}">Edytuj
                     swój profil</a>
-                <c:if test="${user.type == 'GEODESY' or user.type == 'GENERAL_CONTRACTOR'}">
+                <c:if test="${logUser.type == 'GEODESY' or logUser.type == 'GENERAL_CONTRACTOR'}">
                     <a class="collapse-item" href="${pageContext.request.contextPath}/user/${type_prefix}/form">Dodaj
                         użytkownika</a>
 
@@ -59,11 +61,17 @@
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">ZLECENIA:</h6>
-                <c:if test="${user.type == 'GEODESY' or user.type == 'GENERAL_CONTRACTOR'}">
-                    <a class="collapse-item" href="utilities-color.html">Dodaj zlecnie</a>
+                <c:if test="${logUser.type == 'GEODESY' or logUser.type == 'GENERAL_CONTRACTOR'}">
+                    <a class="collapse-item" href="${pageContext.request.contextPath}/work/${type_prefix}/form">Dodaj
+                        zlecnie</a>
                 </c:if>
-                <a class="collapse-item" href="utilities-border.html">Wyszukaj zlecenie</a>
-                <a class="collapse-item" href="utilities-animation.html">Lista zleceń</a>
+                <a class="collapse-item" href="${pageContext.request.contextPath}/">Wyszukaj zlecenie</a>
+                <a class="collapse-item"
+                   href="${pageContext.request.contextPath}/work/${type_prefix}/list/${logUser.id}">Moje zlecenia</a>
+                <c:if test="${logUser.type == 'GEODESY' or logUser.type == 'GENERAL_CONTRACTOR'}">
+                    <a class="collapse-item" href="${pageContext.request.contextPath}/work/${type_prefix}/list">Wszystkie
+                        zlecenia</a>
+                </c:if>
             </div>
         </div>
     </li>

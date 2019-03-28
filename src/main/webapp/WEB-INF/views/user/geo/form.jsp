@@ -1,12 +1,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Title</title>
-</head>
-<body>
-<h2>WIDOK GEO</h2>
+<%@include file="../../base/docHeader.jsp"%>
+<h1 class="h3 mb-0 text-gray-800">Edytuj użytkownika</h1>
 
 <form:form modelAttribute="user"
            method="post"
@@ -34,7 +30,4 @@
 
 </form:form>
 
-
-
-</body>
-</html>
+<%@include file="../../base/docFooter.jsp"%>

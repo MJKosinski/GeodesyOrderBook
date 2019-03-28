@@ -1,6 +1,8 @@
 package com.geohor.controller;
 
+import com.geohor.entity.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.HttpSession;
@@ -15,9 +17,11 @@ public class HomeController {
 
 
     @GetMapping("/logout")
-    public String logout(HttpSession session) {
+    public String logout(HttpSession session, Model model) {
         session.removeAttribute("user");
-        return "login";
+        model.addAttribute("user",new User());
+
+        return "user/login";
 
     }
 

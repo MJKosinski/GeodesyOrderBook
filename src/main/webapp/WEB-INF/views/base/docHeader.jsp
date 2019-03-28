@@ -25,11 +25,11 @@
 <body id="page-top">
 <div style hidden>
     <c:choose>
-        <c:when test="${user.type == 'GEODESY'}">
+        <c:when test="${logUser.type == 'GEODESY'}">
             ${type_prefix = 'geo'}
             ${userFunction = 'Geodeta'}
         </c:when>
-        <c:when test="${user.type == 'GENERAL_CONTRACTOR'}">
+        <c:when test="${logUser.type == 'GENERAL_CONTRACTOR'}">
             ${type_prefix = 'gw'}
             ${userFunction = 'Inżynier budowy'}
         </c:when>

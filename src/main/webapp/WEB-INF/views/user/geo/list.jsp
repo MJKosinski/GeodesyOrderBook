@@ -13,7 +13,7 @@
     </thead>
     <tbody>
     <c:forEach items="${users}" var="list">
-        <c:if test="${user.id != list.id}">
+        <c:if test="${logUser.id != list.id}">
         <tr>
             <td>${list.id}</td>
             <td>${list.name}</td>
