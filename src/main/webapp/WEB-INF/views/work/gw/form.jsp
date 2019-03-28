@@ -46,12 +46,8 @@
     <form:textarea path="description" placeholder="Temat zlecenia" name="description"/>
     <form:errors path="description"/><br>
 
-    <p>
-        <Strong>Uwagi dla geodezji: </Strong> ${work.declarantComment}
-    </p>
-
-    <%--<form:textarea path="declarantComment" placeholder="Uwagi dla geodezji" name="declarantComment"/>--%>
-    <%--<form:errors path="declarantComment"/><br>--%>
+    <form:textarea path="declarantComment" placeholder="Uwagi dla geodezji" name="declarantComment"/>
+    <form:errors path="declarantComment"/><br>
 
     <form:textarea path="geodesyComment" placeholder="Uwagi dla GW" name="geodesyComment"/>
     <form:errors path="geodesyComment"/><br>

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -44,5 +45,15 @@ public class WorkService {
             return workRepository.findAllByDeclarantAndAndGeodesyPerformerOrderByApplicationDate(logUser,logUser);
         }
 
+    }
+
+    public List<Work> getLast10(User logUser) {
+        if(logUser.getType()==UserType.GEODESY){
+            return workRepository.getLast10byGeodesy(logUser);
+        } else if(logUser.getType()==UserType.GENERAL_CONTRACTOR){
+            return workRepository.getLast10byDeclarant(logUser);
+        } else {
+            return workRepository.getLast10bySubconstr(logUser);
+        }
     }
 }

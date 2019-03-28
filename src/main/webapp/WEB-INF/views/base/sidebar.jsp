@@ -85,22 +85,3 @@
     </div>
 
 </ul>
-
-
-<%--<c:if test="${user.type == 'GEODESY'}">--%>
-<%--<p>  link 2 geo</p>--%>
-<%--</c:if>--%>
-
-<%--<p>  link 3 gw</p>--%>
-
-<%--<c:if test="${user.type == 'GEODESY' or user.type == 'GENERAL_CONTRACTOR'}">--%>
-<%--<p>  link 5 geo gw</p>--%>
-<%--</c:if>--%>
-
-<%--<p>  link 4 sub</p>--%>
-<%--</menu>--%>
-
-<%--<a href="${pageContext.request.contextPath}/user/${prefix}/form/${user.id}">edytuj swój profil</a>--%>
-<%--<a href="${pageContext.request.contextPath}/user/${type_prefix}/form">dodaj nowego użytkownika</a>--%>
-<%--<a href="${pageContext.request.contextPath}/user/${type_prefix}/list">pokaż listę użytkowników</a>--%>
-<%--<a href="${pageContext.request.contextPath}/user/${type_prefix}/form">${type_prefix}/form</a>--%>

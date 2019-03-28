@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: mk84
-  Date: 22.03.19
-  Time: 16:54
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -23,7 +16,7 @@
             <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="login.html">Logout</a>
+                <a class="btn btn-primary" href="${pageContext.request.contextPath}/logout">Logout</a>
             </div>
         </div>
     </div>
