@@ -1,8 +1,10 @@
 package com.geohor.service;
 
 import com.geohor.entity.User;
+import com.geohor.entity.Work;
 import com.geohor.myenum.UserType;
 import com.geohor.repository.UserRepository;
+import com.geohor.repository.WorkRepository;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,9 @@ public class UserService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    WorkRepository workRepository;
 
     public void save(User user) {
         boolean hashPass = false;
@@ -65,7 +70,7 @@ public class UserService {
      return allUsers;
     }
 
-    public void delUser(UserType fulltype, Long id) {
+    public void delUser(UserType fulltype, Long id){
         User userToDelete = userRepository.findOne(id);
         if(fulltype == UserType.GEODESY){
             userRepository.delete(userToDelete);
@@ -75,7 +80,8 @@ public class UserService {
             if(userToDelete.getType() != UserType.SUBCONTRACTOR){
                 return;
             } else {
-                userRepository.delete(userToDelete);
+
+                    userRepository.delete(userToDelete);
             }
         }
         return;

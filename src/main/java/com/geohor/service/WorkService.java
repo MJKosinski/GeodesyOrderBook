@@ -32,28 +32,41 @@ public class WorkService {
     }
 
     public List<Work> getMyWorks(User logUser) {
-
-        return workRepository.findAllByDeclarantAndAndGeodesyPerformerOrderByApplicationDate(logUser,logUser);
+        if (logUser.getType() != UserType.SUBCONTRACTOR) {
+            return workRepository.findAllByDeclarantOrGeodesyPerformerOrderByApplicationDate(logUser, logUser);
+        } else {
+            return workRepository.findAllBySubcontractorsOrderByApplicationDate(logUser);
+        }
 
     }
 
     public List<Work> getAll(User logUser) {
 
-        if(logUser.getType() != UserType.SUBCONTRACTOR) {
+        if (logUser.getType() != UserType.SUBCONTRACTOR) {
             return workRepository.findAll();
         } else {
-            return workRepository.findAllByDeclarantAndAndGeodesyPerformerOrderByApplicationDate(logUser,logUser);
+            return workRepository.findAllBySubcontractorsOrderByApplicationDate(logUser);
         }
 
     }
 
     public List<Work> getLast10(User logUser) {
-        if(logUser.getType()==UserType.GEODESY){
+        if (logUser.getType() == UserType.GEODESY) {
             return workRepository.getLast10byGeodesy(logUser);
-        } else if(logUser.getType()==UserType.GENERAL_CONTRACTOR){
+        } else if (logUser.getType() == UserType.GENERAL_CONTRACTOR) {
             return workRepository.getLast10byDeclarant(logUser);
         } else {
             return workRepository.getLast10bySubconstr(logUser);
         }
+    }
+
+    public List<Work> search(User logUser, String worksearch) {
+        if (logUser.getType() != UserType.SUBCONTRACTOR) {
+
+            return workRepository.findAllByDescriptionLikeOrObjectLike(worksearch);
+        } else {
+            return workRepository.getAllBySubconstrByPhrase(logUser,worksearch);
+        }
+
     }
 }

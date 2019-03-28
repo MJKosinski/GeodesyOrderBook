@@ -12,4 +12,6 @@ public interface WorkRepositoryInterface {
     List<Work> getLast10byGeodesy(User geodesy);
 
     List<Work> getLast10bySubconstr(User subcontractor);
+
+    List<Work> getAllBySubconstrByPhrase(User subcontractor, String phrase);
 }

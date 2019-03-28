@@ -35,6 +35,8 @@ public class WorkInit {
         work1.setMileageEnd("10+250");
         work1.setDescription("Tyczenie podbudowy pomocniczej");
         work1.setStatus(StatusType.COMPLETED);
+        work1.setDeclarantComment("Wykonać przed godziną 15.00");
+        work1.setGeodesyPerformer(userRepository.findOne(1L));
         works.add(work1);
 
         Work work2 = new Work();
@@ -83,6 +85,8 @@ public class WorkInit {
         work4.setDescription("Opracowanie modelu KRZ");
         work4.setStatus(StatusType.COMPLETED);
         work4.setSubmissionDate(LocalDate.parse("2019-01-15"));
+        work4.setDeclarantComment("system Trimble - przesłać do podsykonawcy-1");
+        work4.setGeodesyPerformer(userRepository.findOne(1L));
         works.add(work4);
 
 

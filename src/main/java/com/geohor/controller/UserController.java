@@ -8,6 +8,7 @@ import com.geohor.repository.UserRepository;
 import com.geohor.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -107,10 +108,18 @@ public class UserController {
 
 
     @GetMapping("{type}/list/del/{id}")
-    public String delUser(HttpSession session, @PathVariable Long id, @PathVariable String type, HttpServletRequest req){
+    public String delUser(HttpSession session, @PathVariable Long id, @PathVariable String type, HttpServletRequest req, Model model){
         User user = (User) session.getAttribute("logUser");
         UserType fulltype = user.getType();
-        userService.delUser(fulltype, id);
+
+        try {
+            userService.delUser(fulltype, id);
+        }
+        catch (JpaSystemException e) {
+            String errMsg = "Nie można usunąć użytkownika "+userRepository.findOne(id).getName()+"! Jest on przypisany do istniejących zleceń.";
+            model.addAttribute("errorMsg", errMsg);
+            return "forward:"+req.getContextPath()+"/user/"+type+"/list";
+        }
         return "redirect:"+req.getContextPath()+"/user/"+type+"/list"; /// ???
     }
 

@@ -20,8 +20,9 @@
             <td>${list.email}</td>
             <td>${list.type.title}</td>
             <td>
-                <a href="${pageContext.request.contextPath}/user/${type_prefix}/form/${list.id}">Edit</a>
-                <a href="${pageContext.request.contextPath}/user/${type_prefix}/list/del/${list.id}">Delete</a>
+                <a href="${pageContext.request.contextPath}/user/${type_prefix}/form/${list.id}" class="btn btn-info rounded-0 text-light m-1">Edit</a>
+                <a href="${pageContext.request.contextPath}/user/${type_prefix}/list/del/${list.id}" class="btn btn-danger rounded-0 text-light m-1">Delete</a>
+
             </td>
         </tr>
         </c:if>
@@ -29,4 +30,5 @@
     </tbody>
 
 </table>
+${errorMsg}
 <%@include file="../../base/docFooter.jsp"%>

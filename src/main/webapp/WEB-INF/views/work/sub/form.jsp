@@ -62,24 +62,24 @@
 
 
 
-    <label> <Strong>Status zlecenia:</Strong>
+    <label> Status zlecenia:
         <form:select path="status" name="status">
             <form:options items="${statusTypes}" itemLabel="title"/><br>
         </form:select>
     </label><br>
-    <Strong>Podwykonawcy: </Strong>
+
     <form:select path="subcontractors" name="subcontractors">
         <form:options items="${subcontractors}" itemLabel="name" itemValue="id"/><br>
     </form:select>
-    <br>
-    <Strong>Geodeta: </Strong>
-    <form:select path="geodesyPerformer" name="geodesyPerformer">
-        <form:options items="${surveyors}" itemLabel="name" itemValue="id"/><br>
-    </form:select>
-    <br>
+
+    <c:if test="${work.geodesyPerformer.id == logUser.id}">
+    </c:if>
 
     <input type="submit" value="save">
 
+    <%--<c:if test="${logUser.type == 'GEODESY' && work.geodesyPerformer.id != logUser.id}">--%>
+        <%--Dopisz się do zlecenia <input type="checkbox" name=""--%>
+    <%--</c:if>--%>
 
 
 </form:form>

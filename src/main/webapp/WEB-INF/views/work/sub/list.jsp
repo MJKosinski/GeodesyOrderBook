@@ -28,7 +28,7 @@
             <td>${work.description}</td>
             <td>${work.status.title}</td>
             <td>
-                <a href="${pageContext.request.contextPath}/work/${type_prefix}/form/${work.id}" class="btn btn-info rounded-0 text-light m-1">Edit</a>
+                <a href="${pageContext.request.contextPath}/work/${type_prefix}/form/${work.id}">Edit</a>
             </td>
         </tr>
     </c:forEach>

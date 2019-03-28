@@ -56,6 +56,11 @@ public class WorkController {
         return StatusType.values();
     }
 
+    @ModelAttribute("surveyors")
+    public List<User> getSurveyors() {
+        return userRepository.findAllByTypeIs(UserType.GEODESY);
+    }
+
 
     @GetMapping("/{type}/form")
     public String workForm(Model model, @PathVariable String type) {
@@ -98,6 +103,22 @@ public class WorkController {
         model.addAttribute("works",workService.getAll(logUser));
 
         return "work/"+type+"/list";
+    }
+    @GetMapping("/{type}/list/{id}")
+    public String showMyAll(Model model, HttpSession session, @PathVariable String type){
+        User logUser = (User) session.getAttribute("logUser");
+
+        model.addAttribute("works",workService.getMyWorks(logUser));
+        return "work/"+type+"/list";
+    }
+
+    @PostMapping("/{type}/list/search")
+    public String workSearch(HttpServletRequest req , @RequestParam(name="worksearch") String worksearch, @PathVariable String type, HttpSession session, Model model ) {
+        User logUser = (User) session.getAttribute("logUser");
+
+        model.addAttribute("works",workService.search(logUser, worksearch));
+        return "work/"+type+"/list";
+
     }
 
 
