@@ -65,7 +65,8 @@ public class WorkService {
 
             return workRepository.findAllByDescriptionLikeOrObjectLike(worksearch);
         } else {
-            return workRepository.getAllBySubconstrByPhrase(logUser,worksearch);
+            return workRepository.findAllBySubcontractorsAndDescriptionContains(logUser,worksearch); //-działą
+
         }
 
     }

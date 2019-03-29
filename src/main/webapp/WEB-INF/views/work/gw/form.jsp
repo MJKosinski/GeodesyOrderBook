@@ -12,7 +12,7 @@
 
     <form:hidden path="id"/>
 
-    <p>Rodzaj zlecenia:</p>
+    <p>Dział:</p>
     <form:select path="catalog" name="catalog"><br>
         <form:options items="${catalogTypes}" itemLabel="title"/><br>
     </form:select>
@@ -49,33 +49,30 @@
     <form:textarea path="declarantComment" placeholder="Uwagi dla geodezji" name="declarantComment"/>
     <form:errors path="declarantComment"/><br>
 
-    <form:textarea path="geodesyComment" placeholder="Uwagi dla GW" name="geodesyComment"/>
-    <form:errors path="geodesyComment"/><br>
+    <p>
+        <Strong>Uwagi dla GW: </Strong> ${work.geodesyComment}
+    </p>
 
-    <p>Podsumowanie:</p>
+    <hr/>
+
+    <p>
+        <Strong>Raport z terenu: </Strong> ${work.constructFieldRaport}
+    </p>
+    <p>
+        <Strong>Status zlecenia: </Strong> ${work.status.title}
+    </p>
 
 
-    <form:textarea path="constructFieldRaport" placeholder="Raport z terenu" name="constructFieldRaport"/>
-    <form:errors path="constructFieldRaport"/><br>
-
-
-
-    <label> Status zlecenia:
-        <form:select path="status" name="status">
-            <form:options items="${statusTypes}" itemLabel="title"/><br>
-        </form:select>
-    </label><br>
-
+    <Strong>Przypisani podwykonawcy: </Strong>
     <form:select path="subcontractors" name="subcontractors">
         <form:options items="${subcontractors}" itemLabel="name" itemValue="id"/><br>
     </form:select>
-
-    <input type="submit" value="save">
+    <hr/>
+    <input type="submit" value="wyślij">
 
 
 
 
 </form:form>
 
-<a href="/">RETURN HOME</a>
 <%@include file="../../base/docFooter.jsp"%>

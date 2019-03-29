@@ -2,11 +2,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="../../base/docHeader.jsp"%>
-<h1 class="h3 mb-0 text-gray-800">Edytuj użytkownika</h1>
+<h1 class="h3 mb-0 text-gray-800">
+    <c:if test="${user.id == null}">
+        Dodaj użytkownika
+    </c:if>
+    <c:if test="${user.id != null}">
+        Edytuj użytkownika
+    </c:if>
+</h1>
 
 <form:form modelAttribute="user"
            method="post"
-           action="/user/geo/form"
+           action="/user/gw/form"
            cssClass="user">
 
     <form:hidden path="id"/>

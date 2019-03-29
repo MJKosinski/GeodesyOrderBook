@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -64,6 +66,8 @@ public class UserService {
         if(type == UserType.GEODESY) {
 
             allUsers = userRepository.findAll();
+        } else if(type == UserType.GENERAL_CONTRACTOR) {
+            allUsers = userRepository.findAllByTypeIsNot(UserType.GEODESY);
         }
 
 
@@ -87,5 +91,14 @@ public class UserService {
         return;
 
 
+    }
+
+    public List<UserType> getUserTypesList(User logUser) {
+
+        List<UserType> collect = Arrays.stream(UserType.values()).collect(Collectors.toList());
+        if(logUser.getType() == UserType.GENERAL_CONTRACTOR){
+            collect.remove(UserType.GEODESY);
+        }
+    return collect;
     }
 }

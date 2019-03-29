@@ -31,23 +31,25 @@ public class UserController {
     UserService userService;
 
 
-    @ModelAttribute("userTypes")
-    public UserType[] userTypes(){
-        return UserType.values();
-    }
+//    @ModelAttribute("userTypes")
+//    public UserType[] userTypes(){
+//        return UserType.values();
+//    }
 
 
     @GetMapping("/{type}/form")
-    public String userForm(Model model, @PathVariable String type){
+    public String userForm(Model model, @PathVariable String type, HttpSession session ){
+        User logUser = (User) session.getAttribute("logUser");
         model.addAttribute("user", new User());
+        model.addAttribute("userTypes",userService.getUserTypesList(logUser));
         return "user/"+type+"/form";
     }
 
-    @GetMapping("/form")
-    public String userForm(Model model){
-        model.addAttribute("user", new User());
-        return "user/form";
-    }
+//    @GetMapping("/form")
+//    public String userForm(Model model){
+//        model.addAttribute("user", new User());
+//        return "user/form";
+//    }
 
     @PostMapping("{type}/form")
     public String userForm(@Valid User user, BindingResult err, @Validated({FullValidation.class}) User userFull, BindingResult errFull, HttpServletRequest req, @PathVariable String type, HttpSession session){
@@ -69,8 +71,10 @@ public class UserController {
     }
 
     @GetMapping("{type}/form/{id}")
-    public String userForm(Model model, @PathVariable Long id, @PathVariable String type){
+    public String userForm(Model model, @PathVariable Long id, @PathVariable String type, HttpSession session ){
         User user = userRepository.findOne(id);
+        User logUser = (User) session.getAttribute("logUser");
+        model.addAttribute("userTypes",userService.getUserTypesList(logUser));
         model.addAttribute("user", user);
         return "user/"+type+"/form";
     }

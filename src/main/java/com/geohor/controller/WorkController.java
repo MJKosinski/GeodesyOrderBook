@@ -21,6 +21,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/work")
@@ -36,7 +37,7 @@ public class WorkController {
     WorkRepository workRepository;
 
     @ModelAttribute("subcontractors")
-    public List<User> getConstractors(){
+    public List<User> getConstractors() {
 
         return userRepository.findAllByTypeIs(UserType.SUBCONTRACTOR);
     }
@@ -67,57 +68,63 @@ public class WorkController {
         Work work = new Work();
         model.addAttribute("work", work);
 
-        return "work/"+type+"/form";
+        return "work/" + type + "/form";
     }
 
     @GetMapping("/{type}/form/{id}")
-    public String workForm(Model model, @PathVariable String type, @PathVariable Long id, HttpSession session) {
+    public String workForm(Model model, @PathVariable String type, @PathVariable Long id, HttpSession session, HttpServletRequest request) {
         User logUser = (User) session.getAttribute("logUser");
-        if(logUser.getType() != UserType.SUBCONTRACTOR){
-            Work work = workRepository.findOne(id);
+        Work work = workRepository.findOne(id);
+
+        if (logUser.getType() != UserType.SUBCONTRACTOR) {
             model.addAttribute("work", work);
-            return "work/"+type+"/form";
+            return request.getContextPath() + "work/" + type + "/form";
+        } else {
+            if (work.getSubcontractors().stream().anyMatch(u -> u.getId() == logUser.getId())) {
+                model.addAttribute("work", work);
+                return request.getContextPath() + "work/" + type + "/form";
+            }
+
+            return "redirect:"+request.getContextPath() + "/home";
         }
-
-        return "work/"+type+"/list";
     }
-
 
 
     @PostMapping("/{type}/form")
-    public String workForm(@Validated Work work, BindingResult err, HttpServletRequest req , @PathVariable String type,
-                HttpSession session ) {
+    public String workForm(@Validated Work work, BindingResult err, HttpServletRequest req, @PathVariable String type,
+                           HttpSession session) {
         User logUser = (User) session.getAttribute("logUser");
 
         if (err.hasErrors()) {
-            return req.getContextPath()+"/work/"+type+"/form";
+            return req.getContextPath() + "/work/" + type + "/form";
         }
-         workService.save(work, logUser);
+        workService.save(work, logUser);
 
-        return "redirect:"+req.getContextPath()+"/work/"+type+"/list";
+        return "redirect:" + req.getContextPath() + "/work/" + type + "/list";
     }
 
     @GetMapping("/{type}/list")
-    public String showAll(Model model, HttpSession session, @PathVariable String type){
+    public String showAll(Model model, HttpSession session, @PathVariable String type) {
         User logUser = (User) session.getAttribute("logUser");
-        model.addAttribute("works",workService.getAll(logUser));
+        model.addAttribute("works", workService.getAll(logUser));
 
-        return "work/"+type+"/list";
+        return "work/" + type + "/list";
     }
+
     @GetMapping("/{type}/list/{id}")
-    public String showMyAll(Model model, HttpSession session, @PathVariable String type){
+    public String showMyAll(Model model, HttpSession session, @PathVariable String type) {
         User logUser = (User) session.getAttribute("logUser");
 
-        model.addAttribute("works",workService.getMyWorks(logUser));
-        return "work/"+type+"/list";
+        model.addAttribute("works", workService.getMyWorks(logUser));
+        return "work/" + type + "/list";
     }
 
     @PostMapping("/{type}/list/search")
-    public String workSearch(HttpServletRequest req , @RequestParam(name="worksearch") String worksearch, @PathVariable String type, HttpSession session, Model model ) {
+    public String workSearch(HttpServletRequest req, @RequestParam(name = "worksearch") String worksearch, @PathVariable String type, HttpSession session, Model model) {
         User logUser = (User) session.getAttribute("logUser");
 
-        model.addAttribute("works",workService.search(logUser, worksearch));
-        return "work/"+type+"/list";
+        model.addAttribute("works", workService.search(logUser, worksearch));
+        return "work/" + type + "/list";
 
     }
 

@@ -44,7 +44,7 @@ public class WorkRepositoryImpl implements WorkRepositoryInterface {
 
     @Override
     public List<Work> getAllBySubconstrByPhrase(User subcontractor, String phrase) {
-        Query query = entityManager.createQuery("SELECT w FROM Work w JOIN w.subcontractors as s WHERE s.id = :subcontractor AND w.description LIKE :phrase OR w.object LIKE :phrase ORDER BY w.applicationDate DESC ");
+        Query query = entityManager.createQuery("SELECT w FROM Work w JOIN w.subcontractors as s WHERE s.id = :subcontractor AND w.description LIKE %:phrase ORDER BY w.applicationDate DESC ");
         query.setParameter("subcontractor", subcontractor.getId());
         query.setParameter("phrase", phrase);
         return query.getResultList();

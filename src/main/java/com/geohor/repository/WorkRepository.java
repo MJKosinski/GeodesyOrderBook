@@ -18,5 +18,9 @@ public interface WorkRepository extends JpaRepository<Work, Long>, WorkRepositor
     List<Work> findAllByDescriptionLikeOrObjectLike(@Param("phrase") String phrase);
 
 
+    List<Work> findAllBySubcontractorsAndDescriptionContains(User subcontractor, String phrase);
+
+    List<Work> findAllBySubcontractorsAndDescriptionContainsOrObjectContains(User subcontractor, String phrase, String phrase2);
+
 
 }

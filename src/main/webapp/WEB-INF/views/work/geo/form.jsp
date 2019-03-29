@@ -12,7 +12,7 @@
 
     <form:hidden path="id"/>
 
-    <p>Rodzaj zlecenia:</p>
+    <p>Dział:</p>
     <form:select path="catalog" name="catalog"><br>
         <form:options items="${catalogTypes}" itemLabel="title"/><br>
     </form:select>
